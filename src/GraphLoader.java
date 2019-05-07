@@ -27,6 +27,7 @@ public class GraphLoader {
 			reader = new BufferedReader(feader);
 			while (reader.readLine() != null) lines++;
 			reader.close();
+			System.out.println("lines: "+lines);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -39,6 +40,7 @@ public class GraphLoader {
 			feader = new FileReader(fileName);
 			reader = new BufferedReader(feader);
 			int columns = reader.readLine().length();
+			System.out.println("columns: "+columns);
 			reader.close();
 			feader = new FileReader(fileName);
 			reader = new BufferedReader(feader);
@@ -46,7 +48,8 @@ public class GraphLoader {
 			if(lines!=0 && columns!=0) {
 				for(int i=0;i<lines;i++) {
 					for(int j=0;j<columns;j++) {
-						matrix[j][i] = (char)reader.read();	
+						matrix[j][i] = (char)reader.read();
+						System.out.println("read: "+matrix[j][i]);
 					}
 				}
 				
@@ -59,11 +62,15 @@ public class GraphLoader {
 						if(!haveStart) {
 							if(matrix[i][j]=='1') {
 								StartId = j;
+								haveStart = true;
+								System.out.println("StartId: "+j);
 							}
 						}else {
 							if(!haveEnd) {
 								if(matrix[i][j]=='1') {
-									StartId = j;
+									EndId = j;
+									haveEnd = true;
+									System.out.println("EndId: "+j);
 								}
 							}else {
 								break;
