@@ -47,9 +47,9 @@ public class GraphLoader {
 			char[][] matrix = new char[columns][lines];
 			if(lines!=0 && columns!=0) {
 				for(int i=0;i<lines;i++) {
+					String line = reader.readLine();
 					for(int j=0;j<columns;j++) {
-						matrix[j][i] = (char)reader.read();
-						System.out.println("read: "+matrix[j][i]);
+						matrix[j][i] = line.charAt(j);
 					}
 				}
 				
@@ -84,7 +84,6 @@ public class GraphLoader {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			
 			e.printStackTrace();
 		}
 		 
