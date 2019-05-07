@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 public class GraphLoader {
 	
 	private boolean loaded;
@@ -17,7 +19,8 @@ public class GraphLoader {
 	//funkcja wczytuj¹ca graf z pliku, zwraca boolean czy siê uda³o
 	public boolean loadGraph() {
 		
-		String fileName = "graph1.txt";
+		String fileName = "";
+		fileName = JOptionPane.showInputDialog("Podaj nazwê pliku");
 		
 		BufferedReader reader;
 		FileReader feader;
