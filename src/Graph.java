@@ -28,6 +28,16 @@ public class Graph {
 		return edgeList.size();
 	}
 	
+	public void addNode() {
+		int index = nodeList.size();
+		nodeList.add(new Node(index,(float)Math.random()*Data.Dimension,(float)Math.random()*Data.Dimension));
+	}
+	
+	public void addEdge(int StartId, int EndId) {
+		int index = edgeList.size();
+		edgeList.add(new Edge(index,StartId,EndId));
+	}
+	
 	public void generateRandomGraph(int nodes, float edgeProbability) {
 		if(nodes>0) {
 		generateRandomNodes(nodes);
@@ -37,7 +47,7 @@ public class Graph {
 		}
 	}
 	
-	private void generateRandomNodes(int amount) {
+	public void generateRandomNodes(int amount) {
 		while(nodeList.size()>0) {
 			nodeList.remove(nodeList.size()-1);
 		}

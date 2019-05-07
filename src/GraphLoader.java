@@ -1,14 +1,86 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class GraphLoader {
 	
+	private boolean loaded;
+	
 	GraphLoader(){
-		
+		loaded = false;
+		Data.StartGraph = new Graph();
 	}
 	
 	//funkcja wczytuj¹ca graf z pliku, zwraca boolean czy siê uda³o
 	public boolean loadGraph() {
 		
-		//to tylko po to aby b³¹d nie wsykakiwa³ 
-		return false;
+		String fileName = "graph1.txt";
+		
+		BufferedReader reader;
+		FileReader feader;
+		int lines = 0;
+		try {
+			feader = new FileReader(fileName);
+			reader = new BufferedReader(feader);
+			while (reader.readLine() != null) lines++;
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		Data.StartGraph.generateRandomNodes(lines);
+		
+		try {
+			feader = new FileReader(fileName);
+			reader = new BufferedReader(feader);
+			int columns = reader.readLine().length();
+			reader.close();
+			feader = new FileReader(fileName);
+			reader = new BufferedReader(feader);
+			char[][] matrix = new char[columns][lines];
+			if(lines!=0 && columns!=0) {
+				for(int i=0;i<lines;i++) {
+					for(int j=0;j<columns;j++) {
+						matrix[j][i] = (char)reader.read();	
+					}
+				}
+				
+				for(int i=0;i<columns;i++) {
+					boolean haveStart = false;
+					boolean haveEnd = false;
+					int StartId = 0;
+					int EndId = 0;
+					for(int j=0;j<lines;j++) {
+						if(!haveStart) {
+							if(matrix[i][j]=='1') {
+								StartId = j;
+							}
+						}else {
+							if(!haveEnd) {
+								if(matrix[i][j]=='1') {
+									StartId = j;
+								}
+							}else {
+								break;
+							}
+						}
+					}
+					Data.StartGraph.addEdge(StartId, EndId);
+				}
+				loaded = true;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		 
+		return loaded;
 	}
 }
