@@ -77,7 +77,7 @@ public class ResultGraphViewer extends JFrame{
 			t = Data.Dimension/10;
 			double speed;
 			double gravity;
-			int N = 40; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
+			int N = 100; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
 			
 			for(int u=0;u<N;u++) {
 			
@@ -88,9 +88,11 @@ public class ResultGraphViewer extends JFrame{
 						if(j!=i) {
 							double dx = Data.EndGraph.getNode(j).x() - Data.EndGraph.getNode(i).x();
 							double dy = Data.EndGraph.getNode(j).y() - Data.EndGraph.getNode(i).y();
+							double d = Math.sqrt((dx*dx)+(dy*dy));
+							double f = frep(d);
 							//poni¿sze funkcje s¹ trochê inaczej ni¿ w pseudokodzie bo tak jest krócej a znaki i tak siê zgadzaj¹
-							Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()+frep(dx));
-							Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()+frep(dy));
+							Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()+(dx/d)*f);
+							Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()+(dy/d)*f);
 						}
 					}
 				}
@@ -99,10 +101,12 @@ public class ResultGraphViewer extends JFrame{
 				for(int i=0;i<Data.EndGraph.edgeAmount();i++) {
 					double dx = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).x() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).x();
 					double dy = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).y() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).y();
-					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fx() - (dx/Math.abs(dx))*fatr(dx) );
-					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fy() - (dy/Math.abs(dy))*fatr(dy) );
-					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fx() + (dx/Math.abs(dx))*fatr(dx) );
-					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fy() + (dy/Math.abs(dy))*fatr(dy) );
+					double d = Math.sqrt((dx*dx)+(dy*dy));
+					double f = fatr(d);
+					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fx() - (dx/d)*f );
+					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fy() - (dy/d)*f );
+					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fx() + (dx/d)*f );
+					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fy() + (dy/d)*f );
 				}
 				
 				//ograniczenie si³ mog¹cych wywaliæ wierzcho³ki poza dostêpne pole oraz zastosowanie si³
@@ -147,7 +151,7 @@ public class ResultGraphViewer extends JFrame{
 		
 		//temperatura ma siê zmniejszaæ ale nie jest powiedziane jak wiêc tak sobie waln¹³em byle co
 		private void cool() {
-			t = t/1.5;
+			t = t/1.1;
 		}
 	}
 	
