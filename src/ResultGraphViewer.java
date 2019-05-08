@@ -17,6 +17,7 @@ public class ResultGraphViewer extends JFrame{
 	
 	//parametry algorytmu
 	private double k;
+	private double t;
 	
 	ResultGraphViewer(){
 		
@@ -73,10 +74,10 @@ public class ResultGraphViewer extends JFrame{
 			
 			double area = Data.Dimension*Data.Dimension;
 			k = Math.sqrt(area/Data.EndGraph.nodeAmount());
-			double t = Data.Dimension/10;
+			t = Data.Dimension/10;
 			double speed;
 			double gravity;
-			int N = 3; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
+			int N = 40; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
 			
 			for(int u=0;u<N;u++) {
 			
@@ -105,15 +106,30 @@ public class ResultGraphViewer extends JFrame{
 				
 				//ograniczenie si³ mog¹cych wywaliæ wierzcho³ki poza dostêpne pole oraz zastosowanie si³
 				for(int i=0; i<Data.EndGraph.nodeAmount();i++) {
-					//tu nie ogarniam sk¹d siê bierze t i jak siê je ch³odzi potem
-					Data.EndGraph.getNode(i).applyForces();
+					
+					Data.EndGraph.getNode(i).applyForces(t);
+					
+					//zapobieganie wychodzeniu poza pole
+					if(Data.EndGraph.getNode(i).x()<0) {
+						Data.EndGraph.getNode(i).setX(0);
+					}
+					if(Data.EndGraph.getNode(i).x()>Data.Dimension) {
+						Data.EndGraph.getNode(i).setX(Data.Dimension);
+					}
+					if(Data.EndGraph.getNode(i).y()<0) {
+						Data.EndGraph.getNode(i).setY(0);
+					}
+					if(Data.EndGraph.getNode(i).y()>Data.Dimension) {
+						Data.EndGraph.getNode(i).setY(Data.Dimension);
+					}
 				}
 				
-				//drawGraph();
+				drawGraph();
 				
+				cool();
 			}
 			
-			drawGraph();
+			//drawGraph();
 		}
 		
 		//si³a przyci¹gaj¹ca ma wartoœæ dodatni¹
@@ -126,6 +142,10 @@ public class ResultGraphViewer extends JFrame{
 		private double frep(double x) {
 			double fx = -k*k/x;
 			return fx;
+		}
+		
+		private void cool() {
+			t = t/1.5;
 		}
 	}
 	

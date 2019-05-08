@@ -78,8 +78,8 @@ public class Node {
 		fx = 0;
 	}
 	
-	public void applyForces() {
-		x = x + fx;
-		y = y + fy;
+	public void applyForces(double t) {
+		x = x + (fx/Math.abs(fx))*Math.min(Math.abs(fx),t);
+		y = y + (fy/Math.abs(fy))*Math.min(Math.abs(fy),t);
 	}
 }
