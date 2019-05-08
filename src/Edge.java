@@ -45,10 +45,10 @@ public class Edge {
 		return endId;
 	}
 	
-	public float getLength(Graph graph) {
-		float X = Math.abs(graph.getNode(startId).x() - graph.getNode(endId).x());
-		float Y = Math.abs(graph.getNode(startId).y() - graph.getNode(endId).y());
-		float length = (float) Math.sqrt((X*X)+(Y*Y));
+	public double getLength(Graph graph) {
+		double X = Math.abs(graph.getNode(startId).x() - graph.getNode(endId).x());
+		double Y = Math.abs(graph.getNode(startId).y() - graph.getNode(endId).y());
+		double length = Math.sqrt((X*X)+(Y*Y));
 		return length;
 	}
 }

@@ -33,9 +33,25 @@ public class Graph {
 		nodeList.add(new Node(index,(float)Math.random()*Data.Dimension,(float)Math.random()*Data.Dimension));
 	}
 	
+	public void addNode(Node node) {
+		nodeList.add(node);
+	}
+	
 	public void addEdge(int StartId, int EndId) {
 		int index = edgeList.size();
 		edgeList.add(new Edge(index,StartId,EndId));
+	}
+	
+	public void addEdge(Edge edge) {
+		edgeList.add(edge);
+	}
+	
+	public void removeNode() {
+		nodeList.remove(nodeList.size()-1);
+	}
+	
+	public void removeEdge() {
+		edgeList.remove(edgeList.size()-1);
 	}
 	
 	public void generateRandomGraph(int nodes, float edgeProbability) {

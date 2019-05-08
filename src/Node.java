@@ -4,26 +4,32 @@
 public class Node {
 
 	private int id; // id do rozrozniania wierzcholkow
-	private float x; // polozenie na osi x
-	private float y; // polozenie na osi y
+	private double x; // polozenie na osi x
+	private double y; // polozenie na osi y
+	private double fx; //wartoœæ wektora x si³y wp³ywaj¹cej na wierzcho³ek 
+	private double fy; //wartoœæ wektora y si³y wp³ywaj¹cej na wierzcho³ek
 	
 	Node(){
 		x = 0;
 		y = 0;
 		id = 0;
+		fx = 0;
+		fy = 0;
 	}
 	
-	Node(int ID, float X, float Y){
+	Node(int ID, double X, double Y){
 		x = X;
 		y = Y;
 		id = ID;
+		fx = 0;
+		fy = 0;
 	}
 	
-	public void setX(float X) {
+	public void setX(double X) {
 		x = X;
 	}
 	
-	public void setY(float Y) {
+	public void setY(double Y) {
 		y = Y;
 	}
 	
@@ -35,12 +41,37 @@ public class Node {
 		return id;
 	}
 	
-	public float x() {
+	public double x() {
 		return x;
 	}
 	
-	public float y() {
+	public double y() {
 		return y;
 	}
 	
+	public double fx() {
+		return fx;
+	}
+	
+	public double fy() {
+		return fy;
+	}
+	
+	public void setfy(double y) {
+		fy = y;
+	}
+	
+	public void setfx(double x) {
+		fx = x;
+	}
+	
+	public void resetForces() {
+		fy = 0;
+		fx = 0;
+	}
+	
+	public void applyForces() {
+		x = x + fx;
+		y = y + fy;
+	}
 }
