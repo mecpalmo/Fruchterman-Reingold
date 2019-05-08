@@ -33,8 +33,10 @@ public class GraphLoader {
 			System.out.println("lines: "+lines);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "B³¹d wczytywania");
 		} catch (IOException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "B³¹d wczytywania");
 		}
 		
 		Data.StartGraph.generateRandomNodes(lines);
@@ -83,11 +85,15 @@ public class GraphLoader {
 					Data.StartGraph.addEdge(StartId, EndId);
 				}
 				loaded = true;
+			}else {
+				JOptionPane.showMessageDialog(null, "B³¹d wczytywania");
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "B³¹d wczytywania");
 		} catch (IOException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "B³¹d wczytywania");
 		}
 		 
 		return loaded;
