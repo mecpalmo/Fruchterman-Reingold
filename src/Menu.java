@@ -176,7 +176,9 @@ public class Menu extends JFrame{
 	
 	protected void saveGraphToFile() {
 		
-		//zapisanie grafu do pliku tekstowego osobn¹ klas¹ 
+		//zapisanie grafu do pliku tekstowego osobn¹ klas¹
+		GraphSaver saver = new GraphSaver();
+		saver.saveGraph();
 		
 	}
 	
