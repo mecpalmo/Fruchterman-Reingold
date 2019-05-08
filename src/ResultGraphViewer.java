@@ -88,6 +88,7 @@ public class ResultGraphViewer extends JFrame{
 						if(j!=i) {
 							double dx = Data.EndGraph.getNode(j).x() - Data.EndGraph.getNode(i).x();
 							double dy = Data.EndGraph.getNode(j).y() - Data.EndGraph.getNode(i).y();
+							//poni¿sze funkcje s¹ trochê inaczej ni¿ w pseudokodzie bo tak jest krócej a znaki i tak siê zgadzaj¹
 							Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()+frep(dx));
 							Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()+frep(dy));
 						}
@@ -124,12 +125,12 @@ public class ResultGraphViewer extends JFrame{
 					}
 				}
 				
-				drawGraph();
+				//drawGraph();
 				
 				cool();
 			}
 			
-			//drawGraph();
+			drawGraph();
 		}
 		
 		//si³a przyci¹gaj¹ca ma wartoœæ dodatni¹
@@ -144,6 +145,7 @@ public class ResultGraphViewer extends JFrame{
 			return fx;
 		}
 		
+		//temperatura ma siê zmniejszaæ ale nie jest powiedziane jak wiêc tak sobie waln¹³em byle co
 		private void cool() {
 			t = t/1.5;
 		}
