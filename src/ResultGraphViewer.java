@@ -29,6 +29,7 @@ public class ResultGraphViewer extends JFrame{
 		//setSize(Data.WindowSize,Data.WindowSize);
 		setResizable(false);
 		setVisible(true);
+		Data.EndGraph = new Graph();
 		copyGraph();
 		panel = new GraphPanel();
 		add(panel,BorderLayout.CENTER);
@@ -75,7 +76,7 @@ public class ResultGraphViewer extends JFrame{
 			double t = Data.Dimension/10;
 			double speed;
 			double gravity;
-			int N = 100; //liczba iteracji algorytmu
+			int N = 100; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
 			
 			for(int u=0;u<N;u++) {
 			
@@ -117,32 +118,32 @@ public class ResultGraphViewer extends JFrame{
 		
 		//si³a przyci¹gaj¹ca ma wartoœæ dodatni¹
 		private double fatr(double x) {
-			double dx = x*x/k;
-			return dx;
+			double fx = x*x/k;
+			return fx;
 		}
 		
 		//si³a odpychaj¹ca ma wartoœæ ujemn¹
 		private double frep(double x) {
-			double dx = -k*k/x;
-			return dx;
+			double fx = -k*k/x;
+			return fx;
 		}
 	}
 	
 	private void copyGraph() {
 		while(Data.EndGraph.nodeAmount()>0) {
-			Data.EndGraph.removeNode();;
+			Data.EndGraph.removeNode();
 		}
 		
 		while(Data.EndGraph.edgeAmount()>0) {
-			Data.EndGraph.removeEdge();;
+			Data.EndGraph.removeEdge();
 		}
 		
 		for(int i=0;i<Data.StartGraph.nodeAmount();i++) {
-			Data.EndGraph.addNode(Data.StartGraph.getNode(i));
+			Data.EndGraph.addNode(new Node(Data.StartGraph.getNode(i)));
 		}
 		
 		for(int i=0;i<Data.StartGraph.edgeAmount();i++) {
-			Data.EndGraph.addEdge(Data.StartGraph.getEdge(i));
+			Data.EndGraph.addEdge(new Edge(Data.StartGraph.getEdge(i)));
 		}
 	}
 }

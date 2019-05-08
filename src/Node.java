@@ -25,6 +25,14 @@ public class Node {
 		fy = 0;
 	}
 	
+	Node(Node node){
+		x = node.x();
+		y = node.y();
+		id = node.id();
+		fx = node.fx();
+		fy = node.fy();
+	}
+	
 	public void setX(double X) {
 		x = X;
 	}

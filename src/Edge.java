@@ -17,6 +17,12 @@ public class Edge {
 		endId = ENDID;
 	}
 	
+	Edge(Edge edge){
+		id = edge.id();
+		startId = edge.startId();
+		endId = edge.endId();
+	}
+	
 	public int id() {
 		return id;
 	}
