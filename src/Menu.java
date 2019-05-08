@@ -170,7 +170,6 @@ public class Menu extends JFrame{
 	protected void showResultGraph() {
 		
 		//generacja nowego okna wyœwietlaj¹cego rezultat algorytmu
-		//osobna klasa okna która bêdzie mia³a osobn¹ klasê do wykonania algorytmu
 		ResultGraphViewer graphViewer = new ResultGraphViewer();
 		
 	}

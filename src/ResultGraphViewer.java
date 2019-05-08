@@ -76,7 +76,7 @@ public class ResultGraphViewer extends JFrame{
 			double t = Data.Dimension/10;
 			double speed;
 			double gravity;
-			int N = 100; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
+			int N = 3; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
 			
 			for(int u=0;u<N;u++) {
 			
