@@ -122,7 +122,7 @@ public class ResultGraphViewer extends JFrame{
 						}
 						
 						//dodajemy odpychanie od œcianek
-						double a = 0.05;
+						double a = 0.2;
 						double fx = a*frep(Data.EndGraph.getNode(i).x());
 						double fdimx = a*frep(Data.Dimension-Data.EndGraph.getNode(i).x());
 						double fy = a*frep(Data.EndGraph.getNode(i).y());
