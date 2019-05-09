@@ -6,7 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.util.concurrent.TimeUnit;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,10 +16,14 @@ import javax.swing.JPanel;
 public class ResultGraphViewer extends JFrame{
 
 	private GraphPanel panel;
+	private Timer timer;
 	
 	//parametry algorytmu
-	private double k;
-	private double t;
+	private double k; //optymalna odleg³oœæ miêdzy wierzcho³kami
+	private double t; //temperatura
+	int N = 200; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
+	int time = 10000; //czas wykonywania algorytmu (sta³y)
+	int iter; //licznik iteracji algorytmu
 	
 	ResultGraphViewer(){
 		
@@ -28,18 +33,19 @@ public class ResultGraphViewer extends JFrame{
 		Insets insets = temp.getInsets();
 		temp = null;
 		this.setSize(new Dimension(insets.left + insets.right + Data.WindowSize, insets.top + insets.bottom + Data.WindowSize));
-		//setSize(Data.WindowSize,Data.WindowSize);
 		setResizable(false);
 		setVisible(true);
+		
 		copyGraph();
-		//okno na srodku ekranu
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize(); //okno na srodku ekranu komputera
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		panel = new GraphPanel();
+		panel = new GraphPanel(); //generacja panelu
 		add(panel,BorderLayout.CENTER);
 		panel.initAlgorithm();
+		
 	}
 	
 	
@@ -74,78 +80,79 @@ public class ResultGraphViewer extends JFrame{
 		//funkcja inicjuj¹ca wykonanie algorytmu
 		public void initAlgorithm() {
 			
+			drawGraph();
 			double area = Data.Dimension*Data.Dimension;
 			k = Math.sqrt(area/Data.EndGraph.nodeAmount());
 			t = Data.Dimension/10;
-			//double speed;
-			//double gravity;
-			int N = 30; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
-			int time = 10000; //czas wykonywania algorytmu (sta³y)
-			int space = time/N; //odstêp czasowy miêdzy iteracjami
-					
-					for(int u=0;u<N;u++) {
-						
-						//si³y odpychaj¹ce dla wszystkich wierzcho³ków
-						for(int i=0;i<Data.EndGraph.nodeAmount();i++) {
-							Data.EndGraph.getNode(i).resetForces();
-							for(int j=0;j<Data.EndGraph.nodeAmount();j++) {
-								if(j!=i) {
-									double dx = Data.EndGraph.getNode(j).x() - Data.EndGraph.getNode(i).x();
-									double dy = Data.EndGraph.getNode(j).y() - Data.EndGraph.getNode(i).y();
-									double d = Math.sqrt((dx*dx)+(dy*dy));
-									double f = frep(d);
-									//poni¿sze funkcje s¹ trochê inaczej ni¿ w pseudokodzie bo tak jest krócej a znaki i tak siê zgadzaj¹
-									Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()+(dx/d)*f);
-									Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()+(dy/d)*f);
-								}
-							}
-						}
-					
-						//si³y przyci¹gaj¹ce dla wszystkich wierzcho³ków
-						for(int i=0;i<Data.EndGraph.edgeAmount();i++) {
-							double dx = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).x() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).x();
-							double dy = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).y() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).y();
+			iter = 0;
+			timer = new Timer();
+	        timer.scheduleAtFixedRate(new ScheduleTask(), 0, time/N);
+			
+		}
+		
+		private class ScheduleTask extends TimerTask{
+
+			@Override
+			public void run() {
+				
+				//si³y odpychaj¹ce dla wszystkich wierzcho³ków
+				for(int i=0;i<Data.EndGraph.nodeAmount();i++) {
+					Data.EndGraph.getNode(i).resetForces();
+					for(int j=0;j<Data.EndGraph.nodeAmount();j++) {
+						if(j!=i) {
+							double dx = Data.EndGraph.getNode(j).x() - Data.EndGraph.getNode(i).x();
+							double dy = Data.EndGraph.getNode(j).y() - Data.EndGraph.getNode(i).y();
 							double d = Math.sqrt((dx*dx)+(dy*dy));
-							double f = fatr(d);
-							Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fx() - (dx/d)*f );
-							Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fy() - (dy/d)*f );
-							Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fx() + (dx/d)*f );
-							Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fy() + (dy/d)*f );
+							double f = frep(d);
+							//poni¿sze funkcje s¹ trochê inaczej ni¿ w pseudokodzie bo tak jest krócej a znaki i tak siê zgadzaj¹
+							Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()+(dx/d)*f);
+							Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()+(dy/d)*f);
 						}
-						
-						//ograniczenie si³ mog¹cych wywaliæ wierzcho³ki poza dostêpne pole oraz zastosowanie si³
-						for(int i=0; i<Data.EndGraph.nodeAmount();i++) {
-							
-							Data.EndGraph.getNode(i).applyForces(t);
-							
-							//zapobieganie wychodzeniu poza pole
-							if(Data.EndGraph.getNode(i).x()<0) {
-								Data.EndGraph.getNode(i).setX(0);
-							}
-							if(Data.EndGraph.getNode(i).x()>Data.Dimension) {
-								Data.EndGraph.getNode(i).setX(Data.Dimension);
-							}
-							if(Data.EndGraph.getNode(i).y()<0) {
-								Data.EndGraph.getNode(i).setY(0);
-							}
-							if(Data.EndGraph.getNode(i).y()>Data.Dimension) {
-								Data.EndGraph.getNode(i).setY(Data.Dimension);
-							}
-						}
-						
-						try {
-							//TimeUnit.MILLISECONDS.sleep(space);
-							Thread.sleep(space);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						
-						//drawGraph();
-						
-						cool();
 					}
+				}
+			
+				//si³y przyci¹gaj¹ce dla wszystkich wierzcho³ków
+				for(int i=0;i<Data.EndGraph.edgeAmount();i++) {
+					double dx = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).x() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).x();
+					double dy = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).y() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).y();
+					double d = Math.sqrt((dx*dx)+(dy*dy));
+					double f = fatr(d);
+					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fx() - (dx/d)*f );
+					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fy() - (dy/d)*f );
+					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fx() + (dx/d)*f );
+					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fy() + (dy/d)*f );
+				}
+				
+				//ograniczenie si³ mog¹cych wywaliæ wierzcho³ki poza dostêpne pole oraz zastosowanie si³
+				for(int i=0; i<Data.EndGraph.nodeAmount();i++) {
 					
-			drawGraph();
+					Data.EndGraph.getNode(i).applyForces(t);
+					
+					//zapobieganie wychodzeniu poza pole
+					if(Data.EndGraph.getNode(i).x()<0) {
+						Data.EndGraph.getNode(i).setX(0);
+					}
+					if(Data.EndGraph.getNode(i).x()>Data.Dimension) {
+						Data.EndGraph.getNode(i).setX(Data.Dimension);
+					}
+					if(Data.EndGraph.getNode(i).y()<0) {
+						Data.EndGraph.getNode(i).setY(0);
+					}
+					if(Data.EndGraph.getNode(i).y()>Data.Dimension) {
+						Data.EndGraph.getNode(i).setY(Data.Dimension);
+					}
+				}
+				
+				drawGraph();
+				
+				cool();
+				iter++;
+				
+				if(iter>=N) {
+					timer.cancel();
+				}
+				
+			}
 			
 		}
 		
