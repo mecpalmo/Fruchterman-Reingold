@@ -23,11 +23,12 @@ public class Menu extends JFrame{
 	private JSlider NodeSlider;
 	private JLabel label, label2;
 	
-	private int buttonx = 100, buttony = 30;
-	private int sizex = 250, sizey = 400;
+	private int buttonx = 100, buttony = 30; //rozmiar guzików
+	private int sizex = 250, sizey = 400; //rozmiar okna menu
 	
-	private int nodeAmount = 5, edgeProbability = 50;
+	private int nodeAmount = 5, edgeProbability = 50; //domyœlne wartoœci
 	
+	//konstruktor okna menu
 	Menu(){
 		super("Test Alg. F-R");
 		setSize(sizex,sizey);
@@ -40,6 +41,7 @@ public class Menu extends JFrame{
 	
 	private class MenuPanel extends JPanel{
 		
+		//konstruktor panelu menu
 		MenuPanel(){
 			setSize(sizex,sizey);
 			this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
@@ -51,7 +53,7 @@ public class Menu extends JFrame{
 			this.add(Box.createVerticalGlue());
 		}
 		
-		
+		//inicjacja elementów menu
 		private void initButtons() {
 			
 			Font font = new Font("Arial",Font.BOLD,11);
@@ -100,6 +102,7 @@ public class Menu extends JFrame{
 			
 		}
 	
+		//inicjacja elementów menu
 		private void initSliders() {
 			
 			label = new JLabel("Prawdopodobieñstwo krawêdzi: "+edgeProbability+"%");
@@ -136,19 +139,19 @@ public class Menu extends JFrame{
 		
 	}
 	
+	//funkcja uruchamiaj¹ca okno wyœwietlaj¹ce pocz¹tkow¹ wersjê grafu
 	protected void showBaseGraph() {
 		
 		BaseGraphViewer graphViewer = new BaseGraphViewer();
 		
 	}
 
+	//funkcja uruchamiaj¹ca wczytanie grafu z pliku
 	protected void loadGraphFromFile() {
-		
-		//wczytanie grafu z pliku, najlepiej osobn¹ klas¹
-		//odblokowanie guzików initFirstGrahp i initSecondGraph i saveGraph
+
 		GraphLoader loader = new GraphLoader();
 		boolean loaded = loader.loadGraph();
-		if(loaded) {
+		if(loaded) { //odblokowanie guzików initFirstGrahp i initSecondGraph i saveGraph
 			initFirstGraph.setEnabled(true);
 			initSecondGraph.setEnabled(true);
 			saveGraph.setEnabled(true);
@@ -156,6 +159,7 @@ public class Menu extends JFrame{
 		
 	}
 
+	//funkcja generuj¹ca graf losowy
 	protected void createRandomGraph() {
 		
 		float prob = (float)(edgeProbability)/100;
@@ -167,21 +171,22 @@ public class Menu extends JFrame{
 		
 	}
 
+	//generacja nowego okna wyœwietlaj¹cego rezultat algorytmu
 	protected void showResultGraph() {
 		
-		//generacja nowego okna wyœwietlaj¹cego rezultat algorytmu
 		ResultGraphViewer graphViewer = new ResultGraphViewer();
 		
 	}
 	
+	//zapisanie grafu do pliku tekstowego
 	protected void saveGraphToFile() {
 		
-		//zapisanie grafu do pliku tekstowego osobn¹ klas¹
 		GraphSaver saver = new GraphSaver();
 		saver.saveGraph();
 		
 	}
 	
+	//listener na guziki
 	private ActionListener actList = new ActionListener() {
 
 		@Override

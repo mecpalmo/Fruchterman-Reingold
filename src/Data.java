@@ -4,6 +4,8 @@ import java.awt.Color;
 //static aby z ka¿dego miejsca programu mo¿na by³o siê do
 //nich dostaæ
 
+//s¹ tutaj równie¿ ogólne niezmienne parametry maj¹ce wp³yw na dzia³anie programu
+
 public class Data {
 	
 	public static final int WindowSize = 600;

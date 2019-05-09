@@ -12,6 +12,7 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+//Okno w którym algorytm jest wykonywany i prezentowany jego wynik
 @SuppressWarnings("serial")
 public class ResultGraphViewer extends JFrame{
 
@@ -21,8 +22,8 @@ public class ResultGraphViewer extends JFrame{
 	//parametry algorytmu
 	private double k; //optymalna odleg³oœæ miêdzy wierzcho³kami
 	private double t; //temperatura
-	int N = 200; //liczba iteracji algorytmu na razie wstêpnie w ten sposób
-	int time = 10000; //czas wykonywania algorytmu (sta³y)
+	int space = 100; //odstêp czasu miêdzy iteracjami algorytmu (sta³y) (potem uzale¿ni siê go od rozmiaru grafu)
+	int N = 100; //liczba iteracji algorytmu na razie wstêpnie w ten sposób (potem mo¿na uzale¿niæ liczbê iteracji od temperatury)
 	int iter; //licznik iteracji algorytmu
 	
 	ResultGraphViewer(){
@@ -51,6 +52,7 @@ public class ResultGraphViewer extends JFrame{
 	
 	private class GraphPanel extends JPanel{
 		
+		//konstruktor panelu
 		GraphPanel(){
 			setSize(Data.WindowSize,Data.WindowSize);
 			setLayout(null);
@@ -58,10 +60,12 @@ public class ResultGraphViewer extends JFrame{
 			drawGraph();
 		}
 		
+		//funkcja inicjuj¹ca odœwie¿enie obrazu
 		private void drawGraph() {
 			repaint();
 		}
 
+		//funkcja rysuj¹ca graf
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2d = (Graphics2D) g;
@@ -82,14 +86,17 @@ public class ResultGraphViewer extends JFrame{
 			
 			drawGraph();
 			double area = Data.Dimension*Data.Dimension;
-			k = Math.sqrt(area/Data.EndGraph.nodeAmount());
+			k = Math.sqrt(area/Data.EndGraph.nodeAmount())/1.5;
 			t = Data.Dimension/10;
 			iter = 0;
+			int nodes = Data.EndGraph.nodeAmount();
+			int edges = Data.EndGraph.edgeAmount();
 			timer = new Timer();
-	        timer.scheduleAtFixedRate(new ScheduleTask(), 0, time/N);
+	        timer.scheduleAtFixedRate(new ScheduleTask(), 500, space);
 			
 		}
 		
+		//algorytm zostaje umieszczony w timerze aby móg³ byæ wykonywany co równe odstêpy czasu w celu œledzenia przebiegu
 		private class ScheduleTask extends TimerTask{
 
 			@Override
@@ -168,12 +175,14 @@ public class ResultGraphViewer extends JFrame{
 			return fx;
 		}
 		
-		//temperatura ma siê zmniejszaæ ale nie jest powiedziane jak wiêc tak sobie waln¹³em byle co
+		//funkcja ch³odz¹ca temperatura nie mo¿e za szybko spadaæ
 		private void cool() {
-			t = t/1.1;
+			t = t/1.02;
 		}
 	}
 	
+	//przekopiowanie grafu pocz¹tkowego do obiektu EndGraph
+	//na którym bêdzie wykonywany algorytm, aby zapamiêtaæ pocz¹tkowy
 	private void copyGraph() {
 		Data.EndGraph = new Graph();
 		
