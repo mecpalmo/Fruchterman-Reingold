@@ -23,9 +23,9 @@ public class ResultGraphViewer extends JFrame{
 	private double k; //optymalna odleg³oœæ miêdzy wierzcho³kami
 	private double t; //temperatura
 	int space = 100; //odstêp czasu miêdzy iteracjami algorytmu (sta³y) (potem uzale¿ni siê go od rozmiaru grafu)
-	int N = 200; //liczba iteracji algorytmu na razie wstêpnie w ten sposób (potem mo¿na uzale¿niæ liczbê iteracji od temperatury)
+	int N = 300; //liczba iteracji algorytmu na razie wstêpnie w ten sposób (potem mo¿na uzale¿niæ liczbê iteracji od temperatury)
 	int iter; //licznik iteracji algorytmu
-	double margin = 0.001;
+	double margin = 0.00001; //wartoœæ zapobiegaj¹ca dzieleniu przez zero
 	
 	ResultGraphViewer(){
 		
@@ -111,6 +111,9 @@ public class ResultGraphViewer extends JFrame{
 							double dx = Data.EndGraph.getNode(j).x() - Data.EndGraph.getNode(i).x();
 							double dy = Data.EndGraph.getNode(j).y() - Data.EndGraph.getNode(i).y();
 							double d = Math.sqrt((dx*dx)+(dy*dy));
+							if (d==0) {
+								d=margin;
+							}
 							double f = frep(d);
 							//poni¿sze funkcje s¹ trochê inaczej ni¿ w pseudokodzie bo tak jest krócej a znaki i tak siê zgadzaj¹
 							Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()+(dx/d)*f);
@@ -119,10 +122,11 @@ public class ResultGraphViewer extends JFrame{
 						}
 						
 						//dodajemy odpychanie od œcianek
-						double fx = frep(Data.EndGraph.getNode(i).x());
-						double fdimx = frep(Data.Dimension-Data.EndGraph.getNode(i).x());
-						double fy = frep(Data.EndGraph.getNode(i).y());
-						double fdimy = frep(Data.Dimension-Data.EndGraph.getNode(i).x());
+						double a = 0.05;
+						double fx = a*frep(Data.EndGraph.getNode(i).x());
+						double fdimx = a*frep(Data.Dimension-Data.EndGraph.getNode(i).x());
+						double fy = a*frep(Data.EndGraph.getNode(i).y());
+						double fdimy = a*frep(Data.Dimension-Data.EndGraph.getNode(i).y());
 						Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()-fx+fdimx);
 						Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()-fy+fdimy);
 					}
@@ -133,6 +137,9 @@ public class ResultGraphViewer extends JFrame{
 					double dx = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).x() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).x();
 					double dy = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).y() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).y();
 					double d = Math.sqrt((dx*dx)+(dy*dy));
+					if (d==0) {
+						d=margin;
+					}
 					double f = fatr(d);
 					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fx() - (dx/d)*f );
 					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fy() - (dy/d)*f );
