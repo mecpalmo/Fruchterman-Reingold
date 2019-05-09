@@ -25,6 +25,7 @@ public class ResultGraphViewer extends JFrame{
 	int space = 100; //odstêp czasu miêdzy iteracjami algorytmu (sta³y) (potem uzale¿ni siê go od rozmiaru grafu)
 	int N = 100; //liczba iteracji algorytmu na razie wstêpnie w ten sposób (potem mo¿na uzale¿niæ liczbê iteracji od temperatury)
 	int iter; //licznik iteracji algorytmu
+	double margin = 0.001;
 	
 	ResultGraphViewer(){
 		
@@ -86,7 +87,7 @@ public class ResultGraphViewer extends JFrame{
 			
 			drawGraph();
 			double area = Data.Dimension*Data.Dimension;
-			k = Math.sqrt(area/Data.EndGraph.nodeAmount())/1.5;
+			k = Math.sqrt(area/Data.EndGraph.nodeAmount());
 			t = Data.Dimension/10;
 			iter = 0;
 			int nodes = Data.EndGraph.nodeAmount();
@@ -114,7 +115,16 @@ public class ResultGraphViewer extends JFrame{
 							//poni¿sze funkcje s¹ trochê inaczej ni¿ w pseudokodzie bo tak jest krócej a znaki i tak siê zgadzaj¹
 							Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()+(dx/d)*f);
 							Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()+(dy/d)*f);
+							
 						}
+						
+						//dodajemy odpychanie od œcianek
+						double fx = frep(Data.EndGraph.getNode(i).x());
+						double fdimx = frep(Data.Dimension-Data.EndGraph.getNode(i).x());
+						double fy = frep(Data.EndGraph.getNode(i).y());
+						double fdimy = frep(Data.Dimension-Data.EndGraph.getNode(i).x());
+						Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()-fx+fdimx);
+						Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()-fy+fdimy);
 					}
 				}
 			
@@ -136,17 +146,17 @@ public class ResultGraphViewer extends JFrame{
 					Data.EndGraph.getNode(i).applyForces(t);
 					
 					//zapobieganie wychodzeniu poza pole
-					if(Data.EndGraph.getNode(i).x()<0) {
-						Data.EndGraph.getNode(i).setX(0);
+					if(Data.EndGraph.getNode(i).x()<0+margin) {
+						Data.EndGraph.getNode(i).setX(0+margin);
 					}
-					if(Data.EndGraph.getNode(i).x()>Data.Dimension) {
-						Data.EndGraph.getNode(i).setX(Data.Dimension);
+					if(Data.EndGraph.getNode(i).x()>Data.Dimension-margin) {
+						Data.EndGraph.getNode(i).setX(Data.Dimension-margin);
 					}
-					if(Data.EndGraph.getNode(i).y()<0) {
-						Data.EndGraph.getNode(i).setY(0);
+					if(Data.EndGraph.getNode(i).y()<0+margin) {
+						Data.EndGraph.getNode(i).setY(0+margin);
 					}
-					if(Data.EndGraph.getNode(i).y()>Data.Dimension) {
-						Data.EndGraph.getNode(i).setY(Data.Dimension);
+					if(Data.EndGraph.getNode(i).y()>Data.Dimension-margin) {
+						Data.EndGraph.getNode(i).setY(Data.Dimension-margin);
 					}
 				}
 				
