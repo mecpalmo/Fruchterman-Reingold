@@ -21,4 +21,5 @@ public class Data {
 	public static final int NodeSize = 6;
 	public static final int EdgeWidth = 1; // nieu¿ywane
 	
+	public static int wallForce = 10; //w procentach %
 }

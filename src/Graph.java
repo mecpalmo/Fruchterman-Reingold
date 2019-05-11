@@ -79,19 +79,12 @@ public class Graph {
 		}
 		int index = 0;
 		for(int i=0;i<nodeAmount-1;i++) {
-			boolean edgeFree = true; //parametr pomocniczy do zachowania spójnoœci grafu
 			for(int j=i+1;j<nodeAmount;j++) {
 				if(Math.random()<=edgeProbability) {
 					edgeList.add(new Edge(index,i,j));
 					index++;
-					edgeFree = false;
 				}
 			}
-			if(edgeFree) {
-				edgeList.add(new Edge(index,i,(int)(Math.random()*nodeAmount)));
-				index++;
-				edgeFree = false;
-			} // to wszystko do zmiany spójnoœæ grafu inaczej trzeba sprawdziæ
 		}
 	}
 }

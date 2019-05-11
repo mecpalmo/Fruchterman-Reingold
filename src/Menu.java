@@ -21,10 +21,11 @@ public class Menu extends JFrame{
 	private JButton initFirstGraph, initSecondGraph, generateGraph, loadGraph, saveGraph;
 	private JSlider EdgeSlider;
 	private JSlider NodeSlider;
-	private JLabel label, label2;
+	private JSlider WallForceSlider;
+	private JLabel label, label2, label3;
 	
 	private int buttonx = 100, buttony = 30; //rozmiar guzików
-	private int sizex = 250, sizey = 400; //rozmiar okna menu
+	private int sizex = 300, sizey = 400; //rozmiar okna menu
 	
 	private int nodeAmount = 5, edgeProbability = 50; //domyœlne wartoœci
 	
@@ -109,7 +110,7 @@ public class Menu extends JFrame{
 			label.setAlignmentX(Component.CENTER_ALIGNMENT);
 			add(label);
 			
-			EdgeSlider = new JSlider(SwingConstants.HORIZONTAL,10,100,edgeProbability);
+			EdgeSlider = new JSlider(SwingConstants.HORIZONTAL,0,100,edgeProbability);
 			EdgeSlider.setMajorTickSpacing(10);
 			EdgeSlider.setPaintTicks(true);
 			EdgeSlider.setSnapToTicks(true);
@@ -125,7 +126,7 @@ public class Menu extends JFrame{
 			label2.setAlignmentX(Component.CENTER_ALIGNMENT);
 			add(label2);
 			
-			NodeSlider = new JSlider(SwingConstants.HORIZONTAL,1,50,5);
+			NodeSlider = new JSlider(SwingConstants.HORIZONTAL,1,100,nodeAmount);
 			NodeSlider.setMajorTickSpacing(1);
 			NodeSlider.setPaintTicks(true);
 			NodeSlider.addChangeListener(new ChangeListener() {
@@ -135,6 +136,23 @@ public class Menu extends JFrame{
 				}
 			});
 			add(NodeSlider);
+			
+			this.add(Box.createVerticalGlue());
+			label3 = new JLabel("Oddzia³ywanie œcianek: "+Data.wallForce+"%");
+			label3.setAlignmentX(Component.CENTER_ALIGNMENT);
+			add(label3);
+			
+			WallForceSlider = new JSlider(SwingConstants.HORIZONTAL,0,100,Data.wallForce);
+			WallForceSlider.setMajorTickSpacing(10);
+			WallForceSlider.setPaintTicks(true);
+			WallForceSlider.setSnapToTicks(true);
+			WallForceSlider.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
+					Data.wallForce = WallForceSlider.getValue();
+					label3.setText("Oddzia³ywanie œcianek: "+Data.wallForce+"%");
+				}
+			});
+			add(WallForceSlider);
 		}
 		
 	}
