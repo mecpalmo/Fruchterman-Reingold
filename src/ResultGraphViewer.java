@@ -22,9 +22,11 @@ public class ResultGraphViewer extends JFrame{
 	//parametry algorytmu
 	private double k; //optymalna odleg³oœæ miêdzy wierzcho³kami
 	private double t; //temperatura
+	private double C = (double)Data.kFactor/100; //mno¿nik parametru k
 	int space = 100; //odstêp czasu miêdzy iteracjami algorytmu (sta³y) (potem uzale¿ni siê go od rozmiaru grafu)
-	int N = 300; //liczba iteracji algorytmu na razie wstêpnie w ten sposób (potem mo¿na uzale¿niæ liczbê iteracji od temperatury)
+	int N = Data.iterations; //liczba iteracji algorytmu na razie wstêpnie w ten sposób (potem mo¿na uzale¿niæ liczbê iteracji od temperatury)
 	int iter; //licznik iteracji algorytmu
+	double cooler = (double)Data.tempDecrease/100;
 	double margin = 0.00001; //wartoœæ zapobiegaj¹ca dzieleniu przez zero
 	
 	ResultGraphViewer(){
@@ -43,6 +45,10 @@ public class ResultGraphViewer extends JFrame{
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize(); //okno na srodku ekranu komputera
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		
+		N = Data.iterations;
+		C = (double)Data.kFactor/100;
+		cooler = (double)Data.tempDecrease/100;
 		
 		panel = new GraphPanel(); //generacja panelu
 		add(panel,BorderLayout.CENTER);
@@ -87,7 +93,7 @@ public class ResultGraphViewer extends JFrame{
 			
 			drawGraph();
 			double area = Data.Dimension*Data.Dimension;
-			k = Math.sqrt(area/Data.EndGraph.nodeAmount());
+			k = C*Math.sqrt(area/Data.EndGraph.nodeAmount());
 			t = Data.Dimension/10;
 			iter = 0;
 			int nodes = Data.EndGraph.nodeAmount();
@@ -194,7 +200,7 @@ public class ResultGraphViewer extends JFrame{
 		
 		//funkcja ch³odz¹ca temperatura nie mo¿e za szybko spadaæ
 		private void cool() {
-			t = t/1.02;
+			t = t/(cooler+1.00);
 		}
 	}
 	

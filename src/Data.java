@@ -22,4 +22,8 @@ public class Data {
 	public static final int EdgeWidth = 1; // nieu¿ywane
 	
 	public static int wallForce = 10; //w procentach %
+	public static int kFactor = 100; //w procentach %
+	public static int tempDecrease = 2; //(+)*100
+	public static int iterations = 300;
+	
 }

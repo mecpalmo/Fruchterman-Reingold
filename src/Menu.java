@@ -22,10 +22,13 @@ public class Menu extends JFrame{
 	private JSlider EdgeSlider;
 	private JSlider NodeSlider;
 	private JSlider WallForceSlider;
-	private JLabel label, label2, label3;
+	private JSlider KFactorSlider; 
+	private JSlider TemperatureSlider;
+	private JSlider IterationSlider;
+	private JLabel label, label2, label3, label4, label5, label6;
 	
 	private int buttonx = 100, buttony = 30; //rozmiar guzików
-	private int sizex = 300, sizey = 400; //rozmiar okna menu
+	private int sizex = 300, sizey = 600; //rozmiar okna menu
 	
 	private int nodeAmount = 5, edgeProbability = 50; //domyœlne wartoœci
 	
@@ -153,6 +156,54 @@ public class Menu extends JFrame{
 				}
 			});
 			add(WallForceSlider);
+			
+			label4 = new JLabel("Mno¿nik parametru k: "+(double)Data.kFactor/100);
+			label4.setAlignmentX(Component.CENTER_ALIGNMENT);
+			add(label4);
+			
+			KFactorSlider = new JSlider(SwingConstants.HORIZONTAL,50,200,Data.kFactor);
+			KFactorSlider.setMajorTickSpacing(10);
+			KFactorSlider.setPaintTicks(true);
+			KFactorSlider.setSnapToTicks(true);
+			KFactorSlider.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
+					Data.kFactor = KFactorSlider.getValue();
+					label4.setText("Mno¿nik parametru k: "+(double)Data.kFactor/100);
+				}
+			});
+			add(KFactorSlider);
+			
+			label5 = new JLabel("szybkoœæ spadku temperatury: "+Data.tempDecrease);
+			label5.setAlignmentX(Component.CENTER_ALIGNMENT);
+			add(label5);
+			
+			TemperatureSlider = new JSlider(SwingConstants.HORIZONTAL,0,100,Data.tempDecrease);
+			TemperatureSlider.setMajorTickSpacing(1);
+			TemperatureSlider.setPaintTicks(true);
+			TemperatureSlider.setSnapToTicks(true);
+			TemperatureSlider.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
+					Data.tempDecrease = TemperatureSlider.getValue();
+					label5.setText("szybkoœæ spadku temperatury: "+Data.tempDecrease);
+				}
+			});
+			add(TemperatureSlider);
+			
+			label6 = new JLabel("Liczba Iteracji: "+Data.iterations);
+			label6.setAlignmentX(Component.CENTER_ALIGNMENT);
+			add(label6);
+			
+			IterationSlider = new JSlider(SwingConstants.HORIZONTAL,0,500,Data.iterations);
+			IterationSlider.setMajorTickSpacing(20);
+			IterationSlider.setPaintTicks(true);
+			IterationSlider.setSnapToTicks(true);
+			IterationSlider.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
+					Data.iterations = IterationSlider.getValue();
+					label6.setText("Liczba Iteracji: "+Data.iterations);
+				}
+			});
+			add(IterationSlider);
 		}
 		
 	}
