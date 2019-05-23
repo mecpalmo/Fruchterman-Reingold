@@ -28,6 +28,7 @@ public class ResultGraphViewer extends JFrame{
 	int iter; //licznik iteracji algorytmu
 	double cooler = (double)Data.tempDecrease/100;
 	double margin = 0.00001; //wartoœæ zapobiegaj¹ca dzieleniu przez zero
+	double wallForce = (double)Data.wallForce/100;
 	
 	ResultGraphViewer(){
 		
@@ -49,6 +50,7 @@ public class ResultGraphViewer extends JFrame{
 		N = Data.iterations;
 		C = (double)Data.kFactor/100;
 		cooler = (double)Data.tempDecrease/100;
+		wallForce = (double)Data.wallForce/100;
 		
 		panel = new GraphPanel(); //generacja panelu
 		add(panel,BorderLayout.CENTER);
@@ -128,7 +130,7 @@ public class ResultGraphViewer extends JFrame{
 						}
 						
 						//dodajemy odpychanie od œcianek
-						double a = (double)Data.wallForce/100;
+						double a = wallForce
 						double fx = a*frep(Data.EndGraph.getNode(i).x());
 						double fdimx = a*frep(Data.Dimension-Data.EndGraph.getNode(i).x());
 						double fy = a*frep(Data.EndGraph.getNode(i).y());

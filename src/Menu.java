@@ -161,7 +161,7 @@ public class Menu extends JFrame{
 			label4.setAlignmentX(Component.CENTER_ALIGNMENT);
 			add(label4);
 			
-			KFactorSlider = new JSlider(SwingConstants.HORIZONTAL,50,200,Data.kFactor);
+			KFactorSlider = new JSlider(SwingConstants.HORIZONTAL,50,300,Data.kFactor);
 			KFactorSlider.setMajorTickSpacing(10);
 			KFactorSlider.setPaintTicks(true);
 			KFactorSlider.setSnapToTicks(true);
