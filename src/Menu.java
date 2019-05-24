@@ -31,7 +31,9 @@ public class Menu extends JFrame{
 	
 	private int nodeAmount = 5, edgeProbability = 50; //domyœlne wartoœci
 	
-	//konstruktor okna menu
+	/**
+	 * konstruktor okna
+	 */
 	Menu(){
 		super("Test Alg. F-R");
 		setSize(sizex,sizey);
@@ -42,9 +44,15 @@ public class Menu extends JFrame{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
+	/**
+	 * Klasa Panelu okna
+	 *
+	 */
 	private class MenuPanel extends JPanel{
 		
-		//konstruktor panelu menu
+		/**
+		 * konstruktor Panelu
+		 */
 		MenuPanel(){
 			setSize(sizex,sizey);
 			this.setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
@@ -56,7 +64,9 @@ public class Menu extends JFrame{
 			this.add(Box.createVerticalGlue());
 		}
 		
-		//inicjacja elementów menu
+		/**
+		 * inicjacja guziczków (elementów menu)
+		 */
 		private void initButtons() {
 			
 			Font font = new Font("Arial",Font.BOLD,11);
@@ -105,7 +115,9 @@ public class Menu extends JFrame{
 			
 		}
 	
-		//inicjacja elementów menu
+		/**
+		 * inicjacja suwaczków (elementów menu)
+		 */
 		private void initSliders() {
 			
 			label = new JLabel("Prawdopodobieñstwo krawêdzi: "+edgeProbability+"%");
@@ -207,14 +219,19 @@ public class Menu extends JFrame{
 		
 	}
 	
-	//funkcja uruchamiaj¹ca okno wyœwietlaj¹ce pocz¹tkow¹ wersjê grafu
+	/**
+	 * uruchomienie okna wyœwietlaj¹cego pocz¹tkowy obraz grafu
+	 */
 	protected void showBaseGraph() {
 		
 		BaseGraphViewer graphViewer = new BaseGraphViewer();
 		
 	}
 
-	//funkcja uruchamiaj¹ca wczytanie grafu z pliku
+	/**
+	 * Uruchomienie wczytania grafu z pliku
+	 * przy pomyœlnym skutku oblokowuje guziki, pocz¹tkowo zablokowane z powodu braku grafu pocz¹tkowego
+	 */
 	protected void loadGraphFromFile() {
 
 		GraphLoader loader = new GraphLoader();
@@ -227,7 +244,9 @@ public class Menu extends JFrame{
 		
 	}
 
-	//funkcja generuj¹ca graf losowy
+	/**
+	 * generacja grafu losowego
+	 */
 	protected void createRandomGraph() {
 		
 		float prob = (float)(edgeProbability)/100;
@@ -239,14 +258,18 @@ public class Menu extends JFrame{
 		
 	}
 
-	//generacja nowego okna wyœwietlaj¹cego rezultat algorytmu
+	/**
+	 * Uruchomienie okna wyœwietlaj¹cego graf z zastosowaniem algorytmu Fruchtermana-Reingolda
+	 */
 	protected void showResultGraph() {
 		
 		ResultGraphViewer graphViewer = new ResultGraphViewer();
 		
 	}
 	
-	//zapisanie grafu do pliku tekstowego
+	/**
+	 * Uruchomienie zapisu grafu do pliku
+	 */
 	protected void saveGraphToFile() {
 		
 		GraphSaver saver = new GraphSaver();
@@ -254,7 +277,9 @@ public class Menu extends JFrame{
 		
 	}
 	
-	//listener na guziki
+	/**
+	 * Obiekt przypisuj¹cy dzia³anie guzikom w menu
+	 */
 	private ActionListener actList = new ActionListener() {
 
 		@Override
