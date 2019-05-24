@@ -8,7 +8,13 @@ import java.util.List;
  */
 public class Graph {
 
+	/**
+	 * lista wierzcho³ków
+	 */
 	private List<Node> nodeList = new ArrayList<>();
+	/**
+	 * lista krawêdzi
+	 */
 	private List<Edge> edgeList = new ArrayList<>();
 	
 	/**

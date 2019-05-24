@@ -19,20 +19,55 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class ResultGraphViewer extends JFrame{
 
+	/**
+	 * Obiekt Panelu zawartego w oknie
+	 */
 	private GraphPanel panel;
+	/**
+	 * obiekt klasy Timer pozwalaj¹cy na dzia³anie w równych odstêpach czasu 
+	 */
 	private Timer timer;
 	
-	//parametry algorytmu
-	private double k; //optymalna odleg³oœæ miêdzy wierzcho³kami
-	private double t; //temperatura
-	private double C = (double)Data.kFactor/100; //mno¿nik parametru k
-	int space = 100; //odstêp czasu miêdzy iteracjami algorytmu (sta³y)
-	int N = Data.iterations; //liczba iteracji algorytmu
-	int iter; //licznik iteracji algorytmu
+	/**
+	 * optymalna odleg³oœæ miêdzy wierzcho³kami
+	 */
+	private double k;
+	/**
+	 * temperatura
+	 */
+	private double t;
+	/**
+	 * mno¿nik parametru k
+	 */
+	private double C = (double)Data.kFactor/100;
+	/**
+	 * odstêp czasu miêdzy iteracjami algorytmu [ms]
+	 */
+	int space = 100;
+	/**
+	 * liczba iteracji algorytmu
+	 */
+	int N = Data.iterations;
+	/**
+	 * licznik iteracji algorytmu (parametr pomocniczy)
+	 */
+	int iter;
+	/**
+	 * parametr przekszta³caj¹cy szybkoœæ redukcji temperatury na parametr funkcji cool()
+	 */
 	double cooler = (double)Data.tempDecrease/100;
-	double margin = 0.00001; //wartoœæ zapobiegaj¹ca dzieleniu przez zero
+	/**
+	 * wartoœæ zapobiegaj¹ca dzieleniu przez zero
+	 */
+	double margin = 0.00001;
+	/**
+	 * wartoœæ si³y pochodz¹cej od œcianek w postaci u³amka
+	 */
 	double wallForce = (double)Data.wallForce/100;
 	
+	/**
+	 * Obiekt Grafu, na którym wykonywany jest algorytm Fruchtermana Reingolda
+	 */
 	private Graph EndGraph;
 	
 	/**

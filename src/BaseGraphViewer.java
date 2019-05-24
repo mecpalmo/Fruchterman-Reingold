@@ -17,6 +17,9 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class BaseGraphViewer extends JFrame{
 
+	/**
+	 * Obiekt panelu bêd¹cego zawartoœci¹ okna
+	 */
 	private GraphPanel panel;
 	
 	/**

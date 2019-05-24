@@ -13,6 +13,9 @@ import javax.swing.JOptionPane;
  */
 public class GraphLoader {
 	
+	/**
+	 * zmienna przechowuj¹ca odpowiedz na pytanie czy poprawnie wczytano graf z pliku
+	 */
 	private boolean loaded;
 	
 	/**

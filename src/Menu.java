@@ -22,12 +22,27 @@ import javax.swing.event.ChangeListener;
 @SuppressWarnings("serial")
 public class Menu extends JFrame{
 
+	/**
+	 * guziki uruchamiaj¹ce funkcje programu
+	 */
 	private JButton initFirstGraph, initSecondGraph, generateGraph, loadGraph, saveGraph;
+	/**
+	 * suwaki pozwalaj¹ce na regulacjê parametrów programu
+	 */
 	private JSlider EdgeSlider, NodeSlider, WallForceSlider, KFactorSlider, TemperatureSlider, IterationSlider;
+	/**
+	 * komunikaty tekstowe
+	 */
 	private JLabel label, label2, label3, label4, label5, label6;
-	
-	private int buttonx = 100, buttony = 30; //rozmiar guzików
-	private int sizex = 300, sizey = 600; //rozmiar okna menu
+
+	/**
+	 * szerokoœæ i wysokoœæ guzików
+	 */
+	private int buttonx = 100, buttony = 30;
+	/**
+	 * szerokoœæ i wysokoœæ okna menu
+	 */
+	private int sizex = 300, sizey = 600;
 	
 	private int nodeAmount = 5, edgeProbability = 50; //domyœlne wartoœci
 	

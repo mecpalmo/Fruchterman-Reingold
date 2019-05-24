@@ -5,11 +5,26 @@
  */
 public class Node {
 
-	private int id; // id do rozrozniania wierzcholkow
-	private double x; // polozenie na osi x
-	private double y; // polozenie na osi y
-	private double fx; //wartoœæ wektora x si³y wp³ywaj¹cej na wierzcho³ek 
-	private double fy; //wartoœæ wektora y si³y wp³ywaj¹cej na wierzcho³ek
+	/**
+	 * id do rozrozniania wierzcholkow
+	 */
+	private int id;
+	/**
+	 * polozenie na osi x
+	 */
+	private double x;
+	/**
+	 * polozenie na osi y
+	 */
+	private double y;
+	/**
+	 * wartoœæ wektora x si³y wp³ywaj¹cej na wierzcho³ek 
+	 */
+	private double fx;
+	/**
+	 * wartoœæ wektora y si³y wp³ywaj¹cej na wierzcho³ek
+	 */
+	private double fy;
 	
 	/**
 	 * domyœlny konstruktor

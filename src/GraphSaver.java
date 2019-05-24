@@ -9,6 +9,9 @@ import javax.swing.JOptionPane;
  */
 public class GraphSaver {
 
+	/**
+	 * obiekt s³u¿¹cy zapisywaniu treœci do pliku
+	 */
 	private Formatter myFormatter;
 	
 	/**

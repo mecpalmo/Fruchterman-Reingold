@@ -5,9 +5,18 @@
  */
 public class Edge {
 
-	private int id; // id do rozpoznawania krawedzi
-	private int startId; // id wierzcholka poczatkowego
-	private int endId; // id wierzcholka koncowego
+	/**
+	 * numer identyfikacyjny krawêdzi
+	 */
+	private int id;
+	/**
+	 * ID wierzcho³ka bêd¹cego pocz¹tkiem krawêdzi
+	 */
+	private int startId;
+	/**
+	 * ID wierzcho³ka bêd¹cego koñcem krawêdzi
+	 */
+	private int endId;
 	
 	/**
 	 * domyslny konstruktor
