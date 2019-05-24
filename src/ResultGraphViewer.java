@@ -23,8 +23,8 @@ public class ResultGraphViewer extends JFrame{
 	private double k; //optymalna odleg³oœæ miêdzy wierzcho³kami
 	private double t; //temperatura
 	private double C = (double)Data.kFactor/100; //mno¿nik parametru k
-	int space = 100; //odstêp czasu miêdzy iteracjami algorytmu (sta³y) (potem uzale¿ni siê go od rozmiaru grafu)
-	int N = Data.iterations; //liczba iteracji algorytmu na razie wstêpnie w ten sposób (potem mo¿na uzale¿niæ liczbê iteracji od temperatury)
+	int space = 100; //odstêp czasu miêdzy iteracjami algorytmu (sta³y)
+	int N = Data.iterations; //liczba iteracji algorytmu
 	int iter; //licznik iteracji algorytmu
 	double cooler = (double)Data.tempDecrease/100;
 	double margin = 0.00001; //wartoœæ zapobiegaj¹ca dzieleniu przez zero

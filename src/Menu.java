@@ -15,16 +15,15 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * Klasa realizuj¹ca okno g³ównego Menu
+ *
+ */
 @SuppressWarnings("serial")
 public class Menu extends JFrame{
 
 	private JButton initFirstGraph, initSecondGraph, generateGraph, loadGraph, saveGraph;
-	private JSlider EdgeSlider;
-	private JSlider NodeSlider;
-	private JSlider WallForceSlider;
-	private JSlider KFactorSlider; 
-	private JSlider TemperatureSlider;
-	private JSlider IterationSlider;
+	private JSlider EdgeSlider, NodeSlider, WallForceSlider, KFactorSlider, TemperatureSlider, IterationSlider;
 	private JLabel label, label2, label3, label4, label5, label6;
 	
 	private int buttonx = 100, buttony = 30; //rozmiar guzików

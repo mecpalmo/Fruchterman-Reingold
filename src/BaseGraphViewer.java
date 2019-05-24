@@ -10,11 +10,18 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * Klasa Realizuj¹ca okno wyœwietlania pocz¹tkowego stanu grafu
+ *
+ */
 @SuppressWarnings("serial")
 public class BaseGraphViewer extends JFrame{
-	
+
 	private GraphPanel panel;
 	
+	/**
+	 * Konstruktor Okna
+	 */
 	BaseGraphViewer(){
 		super("Graf pocz¹tkowy");
 		JFrame temp = new JFrame();
@@ -33,8 +40,14 @@ public class BaseGraphViewer extends JFrame{
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
+	/**
+	 * Klasa Panelu dla okna
+	 */
 	private class GraphPanel extends JPanel{
 		
+		/**
+		 * Konstruktor Panelu
+		 */
 		GraphPanel(){
 			setSize(Data.WindowSize,Data.WindowSize);
 			setLayout(null);
@@ -42,10 +55,16 @@ public class BaseGraphViewer extends JFrame{
 			drawGraph();
 		}
 		
+		/**
+		 * Wywo³anie ponownego rysowania  
+		 */
 		private void drawGraph() {
 			repaint();
 		}
 
+		/**
+		 * Komponent realizuj¹cy rysowanie wszystkich elementów grafu
+		 */
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2d = (Graphics2D) g;

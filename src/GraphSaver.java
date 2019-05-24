@@ -3,14 +3,24 @@ import java.util.Formatter;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Klasa realizuj¹ca zapis grafu do pliku
+ *
+ */
 public class GraphSaver {
 
 	private Formatter myFormatter;
 	
+	/**
+	 * domyœlny konstruktor
+	 */
 	GraphSaver(){
 		
 	}
 	
+	/**
+	 * Zapis grafu do pliku
+	 */
 	public void saveGraph() {
 		
 		String fileName = JOptionPane.showInputDialog("Podaj nazwê pliku do zapisu (bez rozszerzenia)");
@@ -24,7 +34,7 @@ public class GraphSaver {
 				
 				String line = "";
 				for(int j=0;j<Data.StartGraph.edgeAmount();j++) {
-					if(Data.StartGraph.getEdge(j).startId()==i || Data.StartGraph.getEdge(j).endId()==i) {
+					if(Data.StartGraph.getEdge(j).getStartID()==i || Data.StartGraph.getEdge(j).getEndID()==i) {
 						line = line + "1";
 					}else {
 						line = line + "0";

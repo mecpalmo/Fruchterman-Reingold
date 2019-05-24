@@ -7,16 +7,27 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Klasa realizuj¹ca wczytanie grafu z pliku
+ *
+ */
 public class GraphLoader {
 	
 	private boolean loaded;
 	
+	/**
+	 * konstruktor
+	 */
 	GraphLoader(){
 		loaded = false;
 		Data.StartGraph = new Graph();
 	}
 	
 	//funkcja wczytuj¹ca graf z pliku, zwraca boolean czy siê uda³o
+	/**
+	 * Wczytanie z grafu pliku
+	 * @return zwraca odpowiedz na pytanie czy wczytatnie przebieg³o pomyœlnie
+	 */
 	public boolean loadGraph() {
 		
 		String fileName = "";

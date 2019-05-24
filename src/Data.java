@@ -1,11 +1,9 @@
 import java.awt.Color;
 
-//tutaj bêd¹ znajdowa³y siê wszystkie dane grafu w postaci
-//static aby z ka¿dego miejsca programu mo¿na by³o siê do
-//nich dostaæ
-
-//s¹ tutaj równie¿ ogólne niezmienne parametry maj¹ce wp³yw na dzia³anie programu
-
+/**
+ * Klasa przechowuj¹ca parametry statyczne w celu umo¿liwienia dostêpu do nich z dowolnego miejsca programu
+ *
+ */
 public class Data {
 	
 	public static final int WindowSize = 600;
