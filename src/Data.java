@@ -12,7 +12,6 @@ public class Data {
 	public static final int Dimension = 100;
 
 	public static Graph StartGraph = new Graph();
-	public static Graph EndGraph = new Graph();
 	
 	public static final Color Background = Color.WHITE;
 	public static final Color NodeColor = Color.BLUE;

@@ -30,6 +30,8 @@ public class ResultGraphViewer extends JFrame{
 	double margin = 0.00001; //wartoœæ zapobiegaj¹ca dzieleniu przez zero
 	double wallForce = (double)Data.wallForce/100;
 	
+	private Graph EndGraph;
+	
 	ResultGraphViewer(){
 		
 		super("Graf Fruchtermana-Reingolda");
@@ -81,12 +83,12 @@ public class ResultGraphViewer extends JFrame{
 			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 	        g2d.setColor(Data.NodeColor);
-	        for(int i=0; i<Data.EndGraph.nodeAmount(); i++) {
-	        	g2d.fillOval((int)(Data.EndGraph.getNode(i).x()*Data.WindowSize/Data.Dimension)-(Data.NodeSize/2),(int)(Data.EndGraph.getNode(i).y()*Data.WindowSize/Data.Dimension)-(Data.NodeSize/2), Data.NodeSize, Data.NodeSize);
+	        for(int i=0; i<EndGraph.nodeAmount(); i++) {
+	        	g2d.fillOval((int)(EndGraph.getNode(i).x()*Data.WindowSize/Data.Dimension)-(Data.NodeSize/2),(int)(EndGraph.getNode(i).y()*Data.WindowSize/Data.Dimension)-(Data.NodeSize/2), Data.NodeSize, Data.NodeSize);
 	        }
 	        g2d.setColor(Data.EdgeColor);
-	        for(int i=0; i<Data.EndGraph.edgeAmount(); i++) {
-	        	g2d.drawLine((int)(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).x()*Data.WindowSize/Data.Dimension), (int)(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).y()*Data.WindowSize/Data.Dimension), (int)(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).x()*Data.WindowSize/Data.Dimension), (int)(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).y()*Data.WindowSize/Data.Dimension));
+	        for(int i=0; i<EndGraph.edgeAmount(); i++) {
+	        	g2d.drawLine((int)(EndGraph.getNode(EndGraph.getEdge(i).getStartID()).x()*Data.WindowSize/Data.Dimension), (int)(EndGraph.getNode(EndGraph.getEdge(i).getStartID()).y()*Data.WindowSize/Data.Dimension), (int)(EndGraph.getNode(EndGraph.getEdge(i).getEndID()).x()*Data.WindowSize/Data.Dimension), (int)(EndGraph.getNode(EndGraph.getEdge(i).getEndID()).y()*Data.WindowSize/Data.Dimension));
 	        }
 		}
 		
@@ -95,11 +97,11 @@ public class ResultGraphViewer extends JFrame{
 			
 			drawGraph();
 			double area = Data.Dimension*Data.Dimension;
-			k = C*Math.sqrt(area/Data.EndGraph.nodeAmount());
+			k = C*Math.sqrt(area/EndGraph.nodeAmount());
 			t = Data.Dimension/10;
 			iter = 0;
-			int nodes = Data.EndGraph.nodeAmount();
-			int edges = Data.EndGraph.edgeAmount();
+			int nodes = EndGraph.nodeAmount();
+			int edges = EndGraph.edgeAmount();
 			timer = new Timer();
 	        timer.scheduleAtFixedRate(new ScheduleTask(), 500, space);
 			
@@ -112,66 +114,66 @@ public class ResultGraphViewer extends JFrame{
 			public void run() {
 				
 				//si³y odpychaj¹ce dla wszystkich wierzcho³ków
-				for(int i=0;i<Data.EndGraph.nodeAmount();i++) {
-					Data.EndGraph.getNode(i).resetForces();
-					for(int j=0;j<Data.EndGraph.nodeAmount();j++) {
+				for(int i=0;i<EndGraph.nodeAmount();i++) {
+					EndGraph.getNode(i).resetForces();
+					for(int j=0;j<EndGraph.nodeAmount();j++) {
 						if(j!=i) {
-							double dx = Data.EndGraph.getNode(j).x() - Data.EndGraph.getNode(i).x();
-							double dy = Data.EndGraph.getNode(j).y() - Data.EndGraph.getNode(i).y();
+							double dx = EndGraph.getNode(j).x() - EndGraph.getNode(i).x();
+							double dy = EndGraph.getNode(j).y() - EndGraph.getNode(i).y();
 							double d = Math.sqrt((dx*dx)+(dy*dy));
 							if (d==0) {
 								d=margin;
 							}
 							double f = frep(d);
 							//poni¿sze funkcje s¹ trochê inaczej ni¿ w pseudokodzie bo tak jest krócej a znaki i tak siê zgadzaj¹
-							Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()+(dx/d)*f);
-							Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()+(dy/d)*f);
+							EndGraph.getNode(i).setfx(EndGraph.getNode(i).fx()+(dx/d)*f);
+							EndGraph.getNode(i).setfy(EndGraph.getNode(i).fy()+(dy/d)*f);
 							
 						}
 						
 						//dodajemy odpychanie od œcianek
-						double a = wallForce
-						double fx = a*frep(Data.EndGraph.getNode(i).x());
-						double fdimx = a*frep(Data.Dimension-Data.EndGraph.getNode(i).x());
-						double fy = a*frep(Data.EndGraph.getNode(i).y());
-						double fdimy = a*frep(Data.Dimension-Data.EndGraph.getNode(i).y());
-						Data.EndGraph.getNode(i).setfx(Data.EndGraph.getNode(i).fx()-fx+fdimx);
-						Data.EndGraph.getNode(i).setfy(Data.EndGraph.getNode(i).fy()-fy+fdimy);
+						double a = wallForce;
+						double fx = a*frep(EndGraph.getNode(i).x());
+						double fdimx = a*frep(Data.Dimension-EndGraph.getNode(i).x());
+						double fy = a*frep(EndGraph.getNode(i).y());
+						double fdimy = a*frep(Data.Dimension-EndGraph.getNode(i).y());
+						EndGraph.getNode(i).setfx(EndGraph.getNode(i).fx()-fx+fdimx);
+						EndGraph.getNode(i).setfy(EndGraph.getNode(i).fy()-fy+fdimy);
 					}
 				}
 			
 				//si³y przyci¹gaj¹ce dla wszystkich wierzcho³ków
-				for(int i=0;i<Data.EndGraph.edgeAmount();i++) {
-					double dx = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).x() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).x();
-					double dy = Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).y() - Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).y();
+				for(int i=0;i<EndGraph.edgeAmount();i++) {
+					double dx = EndGraph.getNode(EndGraph.getEdge(i).getStartID()).x() - EndGraph.getNode(EndGraph.getEdge(i).getEndID()).x();
+					double dy = EndGraph.getNode(EndGraph.getEdge(i).getStartID()).y() - EndGraph.getNode(EndGraph.getEdge(i).getEndID()).y();
 					double d = Math.sqrt((dx*dx)+(dy*dy));
 					if (d==0) {
 						d=margin;
 					}
 					double f = fatr(d);
-					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fx() - (dx/d)*f );
-					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getStartID()).fy() - (dy/d)*f );
-					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfx(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fx() + (dx/d)*f );
-					Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).setfy(Data.EndGraph.getNode(Data.EndGraph.getEdge(i).getEndID()).fy() + (dy/d)*f );
+					EndGraph.getNode(EndGraph.getEdge(i).getStartID()).setfx(EndGraph.getNode(EndGraph.getEdge(i).getStartID()).fx() - (dx/d)*f );
+					EndGraph.getNode(EndGraph.getEdge(i).getStartID()).setfy(EndGraph.getNode(EndGraph.getEdge(i).getStartID()).fy() - (dy/d)*f );
+					EndGraph.getNode(EndGraph.getEdge(i).getEndID()).setfx(EndGraph.getNode(EndGraph.getEdge(i).getEndID()).fx() + (dx/d)*f );
+					EndGraph.getNode(EndGraph.getEdge(i).getEndID()).setfy(EndGraph.getNode(EndGraph.getEdge(i).getEndID()).fy() + (dy/d)*f );
 				}
 				
 				//ograniczenie si³ mog¹cych wywaliæ wierzcho³ki poza dostêpne pole oraz zastosowanie si³
-				for(int i=0; i<Data.EndGraph.nodeAmount();i++) {
+				for(int i=0; i<EndGraph.nodeAmount();i++) {
 					
-					Data.EndGraph.getNode(i).applyForces(t);
+					EndGraph.getNode(i).applyForces(t);
 					
 					//zapobieganie wychodzeniu poza pole
-					if(Data.EndGraph.getNode(i).x()<0+margin) {
-						Data.EndGraph.getNode(i).setX(0+margin);
+					if(EndGraph.getNode(i).x()<0+margin) {
+						EndGraph.getNode(i).setX(0+margin);
 					}
-					if(Data.EndGraph.getNode(i).x()>Data.Dimension-margin) {
-						Data.EndGraph.getNode(i).setX(Data.Dimension-margin);
+					if(EndGraph.getNode(i).x()>Data.Dimension-margin) {
+						EndGraph.getNode(i).setX(Data.Dimension-margin);
 					}
-					if(Data.EndGraph.getNode(i).y()<0+margin) {
-						Data.EndGraph.getNode(i).setY(0+margin);
+					if(EndGraph.getNode(i).y()<0+margin) {
+						EndGraph.getNode(i).setY(0+margin);
 					}
-					if(Data.EndGraph.getNode(i).y()>Data.Dimension-margin) {
-						Data.EndGraph.getNode(i).setY(Data.Dimension-margin);
+					if(EndGraph.getNode(i).y()>Data.Dimension-margin) {
+						EndGraph.getNode(i).setY(Data.Dimension-margin);
 					}
 				}
 				
@@ -209,22 +211,22 @@ public class ResultGraphViewer extends JFrame{
 	//przekopiowanie grafu pocz¹tkowego do obiektu EndGraph
 	//na którym bêdzie wykonywany algorytm, aby zapamiêtaæ pocz¹tkowy
 	private void copyGraph() {
-		Data.EndGraph = new Graph();
+		EndGraph = new Graph();
 		
-		while(Data.EndGraph.nodeAmount()>0) {
-			Data.EndGraph.removeNode();
+		while(EndGraph.nodeAmount()>0) {
+			EndGraph.removeNode();
 		}
 		
-		while(Data.EndGraph.edgeAmount()>0) {
-			Data.EndGraph.removeEdge();
+		while(EndGraph.edgeAmount()>0) {
+			EndGraph.removeEdge();
 		}
 		
 		for(int i=0;i<Data.StartGraph.nodeAmount();i++) {
-			Data.EndGraph.addNode(new Node(Data.StartGraph.getNode(i)));
+			EndGraph.addNode(new Node(Data.StartGraph.getNode(i)));
 		}
 		
 		for(int i=0;i<Data.StartGraph.edgeAmount();i++) {
-			Data.EndGraph.addEdge(new Edge(Data.StartGraph.getEdge(i)));
+			EndGraph.addEdge(new Edge(Data.StartGraph.getEdge(i)));
 		}
 	}
 }
