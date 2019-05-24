@@ -12,7 +12,10 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-//Okno w którym algorytm jest wykonywany i prezentowany jego wynik
+/**
+ * Klasa Realizuj¹ca okno wyœwietlania grafu wraz z wykonaniem algorytmu Fruchtermana-Reingolda
+ *
+ */
 @SuppressWarnings("serial")
 public class ResultGraphViewer extends JFrame{
 
@@ -32,6 +35,9 @@ public class ResultGraphViewer extends JFrame{
 	
 	private Graph EndGraph;
 	
+	/**
+	 * konstruktor okna
+	 */
 	ResultGraphViewer(){
 		
 		super("Graf Fruchtermana-Reingolda");
@@ -60,10 +66,15 @@ public class ResultGraphViewer extends JFrame{
 		
 	}
 	
-	
+	/**
+	 * Klasa Panelu dla okna
+	 *
+	 */
 	private class GraphPanel extends JPanel{
 		
-		//konstruktor panelu
+		/**
+		 * konstruktor Panelu
+		 */
 		GraphPanel(){
 			setSize(Data.WindowSize,Data.WindowSize);
 			setLayout(null);
@@ -71,12 +82,16 @@ public class ResultGraphViewer extends JFrame{
 			drawGraph();
 		}
 		
-		//funkcja inicjuj¹ca odœwie¿enie obrazu
+		/**
+		 * Wywo³anie ponownego rysowania
+		 */
 		private void drawGraph() {
 			repaint();
 		}
 
-		//funkcja rysuj¹ca graf
+		/**
+		 * Komponent realizuj¹cy rysowanie wszystkich elementów grafu
+		 */
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D g2d = (Graphics2D) g;
@@ -92,7 +107,9 @@ public class ResultGraphViewer extends JFrame{
 	        }
 		}
 		
-		//funkcja inicjuj¹ca wykonanie algorytmu
+		/**
+		 * inicjacja wykonania algorytmu
+		 */
 		public void initAlgorithm() {
 			
 			drawGraph();
@@ -107,9 +124,15 @@ public class ResultGraphViewer extends JFrame{
 			
 		}
 		
-		//algorytm zostaje umieszczony w timerze aby móg³ byæ wykonywany co równe odstêpy czasu w celu œledzenia przebiegu
+		/**
+		 * Klasa TimerTask realizuj¹ca funkcjê run w równych odstêpach czasu
+		 *
+		 */
 		private class ScheduleTask extends TimerTask{
 
+			/**
+			 * wykonanie iteracji algorytmu uruchamiane co sta³¹ jednostkê czasu
+			 */
 			@Override
 			public void run() {
 				
@@ -190,26 +213,37 @@ public class ResultGraphViewer extends JFrame{
 			
 		}
 		
-		//si³a przyci¹gaj¹ca ma wartoœæ dodatni¹
+		/**
+		 * 
+		 * @param x odleg³oœæ miêdzy obiektami
+		 * @return zwraca wartoœæ si³y przyci¹gaj¹cej
+		 */
 		private double fatr(double x) {
 			double fx = x*x/k;
 			return fx;
 		}
 		
-		//si³a odpychaj¹ca ma wartoœæ ujemn¹
+		/**
+		 * 
+		 * @param x odleg³oœæ miêdzy obiektami
+		 * @return zwraca wartoœæ si³y odpychaj¹cej
+		 */
 		private double frep(double x) {
 			double fx = -k*k/x;
 			return fx;
 		}
 		
-		//funkcja ch³odz¹ca temperatura nie mo¿e za szybko spadaæ
+		/**
+		 * redukcja temperatury, czyli zmniejszenie parametru t
+		 */
 		private void cool() {
 			t = t/(cooler+1.00);
 		}
 	}
 	
-	//przekopiowanie grafu pocz¹tkowego do obiektu EndGraph
-	//na którym bêdzie wykonywany algorytm, aby zapamiêtaæ pocz¹tkowy
+	/**
+	 * skopiowanie grafu pocz¹tkowego do grafu na którym bêdzie wykonywany algorytm w celu zachowania stanu pocz¹tkowego
+	 */
 	private void copyGraph() {
 		EndGraph = new Graph();
 		
