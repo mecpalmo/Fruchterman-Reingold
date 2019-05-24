@@ -23,28 +23,101 @@ import javax.swing.event.ChangeListener;
 public class Menu extends JFrame{
 
 	/**
-	 * guziki uruchamiaj¹ce funkcje programu
+	 * guzik uruchamiaj¹cy okno pokazuj¹ce graf pocz¹tkowy
 	 */
-	private JButton initFirstGraph, initSecondGraph, generateGraph, loadGraph, saveGraph;
+	private JButton initFirstGraph;
 	/**
-	 * suwaki pozwalaj¹ce na regulacjê parametrów programu
+	 * guzik uruchamiaj¹cy okno pokazuj¹ce dzia³anie algorytmu Fruchtermana Reingolda
 	 */
-	private JSlider EdgeSlider, NodeSlider, WallForceSlider, KFactorSlider, TemperatureSlider, IterationSlider;
+	private JButton initSecondGraph;
 	/**
-	 * komunikaty tekstowe
+	 * guzik uruchamiaj¹cy generacjê grafu losowego
 	 */
-	private JLabel label, label2, label3, label4, label5, label6;
+	private JButton generateGraph;
+	/**
+	 * guzik uruchamiaj¹cy wczytanie grafu z pliku
+	 */
+	private JButton loadGraph;
+	/**
+	 * guzik uruchamiaj¹cy zapis grafu do pliku
+	 */
+	private JButton saveGraph;
+	
+	/**
+	 * suwaki reguluj¹cy prawdopodobieñstwo wyst¹pienia krawêdzi
+	 */
+	private JSlider EdgeSlider;
+	/**
+	 * suwak reguluj¹cy liczbê wierzcho³ków grafu losowego
+	 */
+	private JSlider NodeSlider;
+	/**
+	 * suwak reguluj¹cy oddzia³ywanie œcianek p³aszczyzny prezentacji 
+	 */
+	private JSlider WallForceSlider;
+	/**
+	 * suwak reguluj¹cy mno¿nik parametru k
+	 */
+	private JSlider KFactorSlider;
+	/**
+	 * suwak reguluj¹cy szybkoœæ redukcji temperatury
+	 */
+	private JSlider TemperatureSlider;
+	/**
+	 * suwak reguluj¹cy liczbê iteracji
+	 */
+	private JSlider IterationSlider;
+	
+	/**
+	 * komunikat tekstowy
+	 */
+	private JLabel label;
+	/**
+	 * komunikat tekstowy
+	 */
+	private JLabel label2;
+	/**
+	 * komunikat tekstowy
+	 */
+	private JLabel label3;
+	/**
+	 * komunikat tekstowy
+	 */
+	private JLabel label4;
+	/**
+	 * komunikat tekstowy
+	 */
+	private JLabel label5;
+	/**
+	 * komunikat tekstowy
+	 */
+	private JLabel label6;
 
 	/**
-	 * szerokoœæ i wysokoœæ guzików
+	 * szerokoœæ guzików
 	 */
-	private int buttonx = 100, buttony = 30;
+	private int buttonx = 100;
 	/**
-	 * szerokoœæ i wysokoœæ okna menu
+	 * wysokoœæ guzików
 	 */
-	private int sizex = 300, sizey = 600;
+	private int buttony = 30;
+	/**
+	 * szerokoœæ okna menu
+	 */
+	private int sizex = 300;
+	/**
+	 * wysokoœæ okna menu
+	 */
+	private int sizey = 600;
 	
-	private int nodeAmount = 5, edgeProbability = 50; //domyœlne wartoœci
+	/**
+	 * domyœlna liczba wierzcho³ków
+	 */
+	private int nodeAmount = 5;
+	/**
+	 * domyœlna wartoœæ prawdopodobieñstwa wyst¹pienia krawêdzi
+	 */
+	private int edgeProbability = 50;
 	
 	/**
 	 * konstruktor okna
