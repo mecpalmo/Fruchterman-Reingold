@@ -19,6 +19,9 @@ import javax.swing.event.ChangeListener;
  * Klasa realizuj¹ca okno g³ównego Menu
  *
  */
+
+//hbntrsthbrth
+
 @SuppressWarnings("serial")
 public class Menu extends JFrame{
 
